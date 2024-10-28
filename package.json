@@ -1,0 +1,21 @@
+{
+  "name": "short-url",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@sumor/short-id": "^1.0.2",
+    "ejs": "^3.1.10",
+    "express": "^4.21.1",
+    "mongoose": "^8.7.3",
+    "short-id": "^0.1.0-1",
+    "short-unique-id": "^5.2.0",
+    "shortid": "^2.2.16"
+  }
+}
