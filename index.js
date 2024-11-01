@@ -4,8 +4,11 @@ const { connectDB } = require("./connect");
 const urlRoute = require("./routes/url");
 const URL = require("./models/url");
 const path = require("path");
+const { restrictToLoggedInUserOnly, checkAuth } = require("./middlewares/auth");
+const cookieParser = require("cookie-parser");
 const port = 3000;
 const staticRoute = require("./routes/staticRouter");
+const userRoute = require("./routes/user");
 // Connect to MongoDB
 connectDB("mongodb://localhost:27017/short-url").then(() =>
   console.log("mongoDB connected")
@@ -16,14 +19,16 @@ app.set("views", path.resolve("./views"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/", staticRoute);
-app.get("/test", async (req, res) => {
-  const allUrls = await URL.find({});
-  return res.render("home", { urls: allUrls });
-});
+app.use(cookieParser());
+// app.get("/test", async (req, res) => {
+//   const allUrls = await URL.find({});
+//   return res.render("home", { urls: allUrls });
+// });
 
 // URL routes
-app.use("/url", urlRoute);
-
+app.use("/url", restrictToLoggedInUserOnly, urlRoute);
+app.use("/user", userRoute);
+app.use("/", checkAuth, staticRoute);
 // Redirecting short URLs
 app.get("/url/:shortId", async (req, res) => {
   const shortId = req.params.shortId;
