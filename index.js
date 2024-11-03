@@ -18,13 +18,7 @@ app.set("views", path.resolve("./views"));
 // Middleware to parse JSON requests
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use("/", staticRoute);
 app.use(cookieParser());
-// app.get("/test", async (req, res) => {
-//   const allUrls = await URL.find({});
-//   return res.render("home", { urls: allUrls });
-// });
-
 // URL routes
 app.use("/url", restrictToLoggedInUserOnly, urlRoute);
 app.use("/user", userRoute);
