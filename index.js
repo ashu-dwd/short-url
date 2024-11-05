@@ -10,7 +10,7 @@ const port = 3000;
 const staticRoute = require("./routes/staticRouter");
 const userRoute = require("./routes/user");
 // Connect to MongoDB
-connectDB("mongodb://localhost:27017/short-url").then(() =>
+connectDB("https://119.252.198.124/32/short-url").then(() =>
   console.log("mongoDB connected")
 );
 app.set("view engine", "ejs");
